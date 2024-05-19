@@ -1,0 +1,97 @@
+CREATE TABLE customer(
+    first_name char(40),
+    last_name char(40),
+    customer_name char(40),
+    email char(40),
+    phone int,
+    phone char(40),
+    pass char(40),
+    PRIMARY KEY (email)
+)
+
+
+
+CREATE TABLE admin(
+    admin_name char(40),
+    email char(40),
+    pass char(40),
+    PRIMARY KEY (email)
+)
+
+
+CREATE TABLE airline (
+    email CHAR(40) PRIMARY KEY,
+    pass CHAR(40), 
+    airline_name CHAR(40) UNIQUE,
+    logo CHAR(40)
+);
+
+
+CREATE TABLE airport (
+    airport_id INT AUTO_INCREMENT PRIMARY KEY,
+    airport_name char(40)
+);
+
+
+CREATE TABLE flight (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    source_date DATE,
+    source_time TIME,
+    dest_date DATE,
+    dest_time TIME,
+    dep_airport char(40), 
+    arr_airport char(40),  
+    seats INT,
+    price DECIMAL(12, 2),
+    flight_class char(40),
+    airline_name char(40),
+    dep_airport_id int,
+    arr_airport_id int,
+    airline_email char(40),
+    foreign key(dep_airport_id) references airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(arr_airport_id) references airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(airline_email) references airline(email) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(airline_name) references airline(airline_name) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
+
+CREATE TABLE booked (                        
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    flight_id int,
+    customer_email char(40),
+    foreign key(flight_id) references flight(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(customer_email) references customer(email) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
+
+
+
+
+
+not using
+CREATE TABLE booked (                        
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    source_date DATE,
+    source_time TIME,
+    dest_date DATE,
+    dest_time TIME,
+    dep_airport char(40), 
+    arr_airport char(40),  
+    flight_class char(40),
+    airline_name CHAR(40),
+    customer_email char(40),
+    dep_airport_id int,
+    arr_airport_id int,
+    airline_email char(40),
+    foreign key(customer_email) references customer(email) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(dep_airport_id) references airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(arr_airport_id) references airport(airport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key(airline_email) references airline(email) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
